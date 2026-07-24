@@ -1,0 +1,7 @@
+# Robots.txt file for Muhammad Ayman - Portfolio Website
+# Zero-Trust crawler filtering enabled
+
+User-agent: *
+Allow: /
+
+Sitemap: https://muhammad-ayman.sec/sitemap.xml
