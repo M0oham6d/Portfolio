@@ -347,8 +347,8 @@ export const portfolioData: PortfolioData = {
       ],
     },
     {
-      id: "proj12",
-      title: "Sentinel Analyst Lab",
+      id: "proj11",
+      title: "Bank SMS to Notion Automation",
       company: "Self-Learning & Automation",
       date: "July 2026",
       shortDescription:
