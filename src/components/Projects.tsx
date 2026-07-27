@@ -78,7 +78,7 @@ export function Projects() {
               <div className="lg:col-span-5 bg-gradient-to-br from-blue-900/25 via-blue-950/20 to-slate-950 p-8 flex flex-col justify-between border-r border-slate-100 dark:border-slate-900 min-h-[300px]">
                 <div className="flex items-center gap-2">
                   <span className="bg-blue-600 text-white font-mono text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full uppercase">
-                    FEATURED SECURITY AUTOMATION
+                    FEATURED SECURITY PROJECT
                   </span>
                 </div>
                 
