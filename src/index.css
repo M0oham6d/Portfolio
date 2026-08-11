@@ -21,12 +21,23 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
     -webkit-tap-highlight-color: transparent;
   }
   
   body {
     font-family: var(--font-sans);
+    margin: 0;
+    background: #020617;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  button, a, input, textarea {
+    outline-offset: 3px;
+  }
+
+  :focus-visible {
+    outline: 2px solid #60a5fa;
   }
 
   ::selection {
@@ -52,6 +63,26 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(0, 0, 0, 0.05);
   }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-150%);
+    border-radius: 0.75rem;
+    background: #2563eb;
+    padding: 0.65rem 1rem;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: transform 150ms ease;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
 }
 
 /* Custom Scrollbar */
@@ -61,7 +92,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: white;
+  background-color: #020617;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -83,3 +114,23 @@
   margin-left: 2px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+  canvas { display: none !important; }
+}
+
+@media print {
+  header, footer, #home, #about, #experience, #skills, #projects, #certifications, #contact, #back-to-top-btn,
+  #resume > div > div:first-child, #resume > div > div:nth-child(2), canvas {
+    display: none !important;
+  }
+  body { background: white !important; color: #0f172a !important; }
+  #resume { padding: 0 !important; border: 0 !important; }
+  #resume * { color: #0f172a !important; box-shadow: none !important; }
+}

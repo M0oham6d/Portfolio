@@ -56,6 +56,7 @@ export function Projects() {
             <Search className="w-5 h-5" />
           </div>
           <input
+            aria-label="Search projects"
             type="text"
             placeholder="Search projects by title, tech stack, features..."
             value={searchTerm}
@@ -258,6 +259,9 @@ export function Projects() {
 
               {/* Modal window */}
               <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${selectedProject.title} project details`}
                 initial={{ opacity: 0, scale: 0.95, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -457,6 +461,9 @@ export function Projects() {
               />
 
               <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${pdfViewerFile.name} document preview`}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -472,12 +479,14 @@ export function Projects() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => downloadFile(pdfViewerFile)}
+                      aria-label={`Download ${pdfViewerFile.name}`}
                       className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all cursor-pointer"
                     >
                       <Download className="w-4.5 h-4.5" />
                     </button>
                     <button
                       onClick={() => setPdfViewerFile(null)}
+                      aria-label="Close document preview"
                       className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all cursor-pointer"
                     >
                       <X className="w-4.5 h-4.5" />
@@ -487,37 +496,11 @@ export function Projects() {
 
                 {/* PDF Facsimile Frame / Reader view */}
                 <div className="flex-1 bg-slate-950 p-6 flex items-center justify-center relative">
-                  {pdfViewerFile.url.startsWith('blob:') ? (
-                    <iframe
-                      src={pdfViewerFile.url}
-                      className="w-full h-full rounded-2xl border border-slate-800 bg-white"
-                      title={pdfViewerFile.name}
-                    />
-                  ) : (
-                    <div className="bg-slate-900 border border-slate-800 text-slate-300 rounded-2xl p-8 max-w-lg w-full flex flex-col gap-4 text-center shadow-2xl">
-                      <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto text-blue-500">
-                        <FileText className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-slate-100 font-display">
-                          {pdfViewerFile.name}
-                        </h4>
-                        <p className="text-[11px] font-mono text-blue-400 mt-1 uppercase">
-                          CYBERSECURITY COMPLIANCE REPORT // SECURED MANIFEST
-                        </p>
-                      </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        This document details architectural guidelines, threat hunting models, and configuration backups for {selectedProject?.title || 'this deployment'}. It is encrypted for standard transport security.
-                      </p>
-                      
-                      <button
-                        onClick={() => downloadFile(pdfViewerFile)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-2.5 px-4 rounded-xl cursor-pointer self-center"
-                      >
-                        Download Full Document
-                      </button>
-                    </div>
-                  )}
+                  <iframe
+                    src={pdfViewerFile.url}
+                    className="w-full h-full rounded-2xl border border-slate-800 bg-white"
+                    title={pdfViewerFile.name}
+                  />
                 </div>
               </motion.div>
             </div>
@@ -538,6 +521,7 @@ export function Projects() {
               
               <button
                 onClick={() => setLightboxImage(null)}
+                aria-label="Close image preview"
                 className="absolute top-6 right-6 z-10 p-2.5 rounded-xl bg-slate-900/60 text-white hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />

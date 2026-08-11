@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Shield, ChevronUp, Github, Linkedin, ShieldCheck, Mail, ArrowUp } from 'lucide-react';
-import { ToastProvider, useToast } from './components/Toast';
+import { Github, Linkedin, ArrowUp } from 'lucide-react';
+import { ToastProvider } from './components/Toast';
 import { CyberBackground } from './components/CyberBackground';
-import { Loader } from './components/Loader';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -18,7 +17,6 @@ import { portfolioData } from './portfolioData';
 function AppContent() {
   const isDarkMode = true;
   
-  const [isLoading, setIsLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Ensure dark class is always applied to document body / html
@@ -49,17 +47,13 @@ function AppContent() {
   };
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
-        <Loader key="terminal-loader" onComplete={() => setIsLoading(false)} />
-      ) : (
-        <motion.div
-          key="portfolio-layout"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="min-h-screen relative text-slate-800 dark:text-slate-100 flex flex-col justify-between"
-        >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+      className="min-h-screen relative text-slate-100 flex flex-col justify-between"
+    >
+          <a href="#main-content" className="skip-link">Skip to main content</a>
           {/* Animated Cyber Background Canvas */}
           <CyberBackground isDarkMode={isDarkMode} />
 
@@ -67,7 +61,7 @@ function AppContent() {
           <Navbar isDarkMode={isDarkMode} />
 
           {/* Core Single Screen / Scrollable View Stack */}
-          <main className="flex-1">
+          <main id="main-content" className="flex-1">
             <Hero />
             <About />
             <Experience />
@@ -111,8 +105,9 @@ function AppContent() {
                     href={portfolioData.personalInfo.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
-                    title="GitHub"
+                     className="text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
+                      title="GitHub"
+                      aria-label="View Muhammad Ayman's GitHub profile"
                   >
                     <Github className="w-4 h-4" />
                   </a>
@@ -120,14 +115,15 @@ function AppContent() {
                     href={portfolioData.personalInfo.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                    title="LinkedIn"
+                      className="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      title="LinkedIn"
+                      aria-label="View Muhammad Ayman's LinkedIn profile"
                   >
                     <Linkedin className="w-4 h-4" />
                   </a>
                 </div>
                 <p className="text-[10px] font-mono text-slate-400">
-                  &copy; {new Date().getFullYear()} Muhammad Ayman. All rights reserved under SOC rules.
+                  &copy; {new Date().getFullYear()} Muhammad Ayman. Built with care in Cairo.
                 </p>
               </div>
 
@@ -150,9 +146,7 @@ function AppContent() {
               </motion.button>
             )}
           </AnimatePresence>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    </motion.div>
   );
 }
 

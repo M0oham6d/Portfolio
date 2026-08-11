@@ -17,7 +17,7 @@ const navSections = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export function Navbar({ isDarkMode }: NavbarProps) {
+export function Navbar({ isDarkMode: _isDarkMode }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('#home');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -107,7 +107,7 @@ export function Navbar({ isDarkMode }: NavbarProps) {
         </a>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1.5 bg-slate-100/50 dark:bg-slate-900/40 p-1.5 rounded-full border border-slate-200/40 dark:border-slate-800/30 glassmorphism-dark">
+        <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-1 bg-slate-900/50 p-1.5 rounded-full border border-slate-800/60 glassmorphism-dark">
           {navSections.map((sect) => {
             const isActive = activeSection === sect.href;
             return (
@@ -134,7 +134,9 @@ export function Navbar({ isDarkMode }: NavbarProps) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             id="mobile-menu-toggle"
             aria-label="Toggle navigation menu"
-            className="md:hidden p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 transition-all duration-200 cursor-pointer"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            className="lg:hidden p-2.5 rounded-xl border border-slate-800 hover:bg-slate-900 text-slate-300 transition-all duration-200 cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -149,9 +151,10 @@ export function Navbar({ isDarkMode }: NavbarProps) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg overflow-hidden"
+            id="mobile-navigation"
+            className="lg:hidden border-b border-slate-800 bg-slate-950/95 backdrop-blur-lg overflow-hidden"
           >
-            <nav className="px-4 pt-3 pb-6 flex flex-col gap-2">
+            <nav aria-label="Mobile navigation" className="px-4 pt-3 pb-6 flex flex-col gap-2">
               {navSections.map((sect) => {
                 const isActive = activeSection === sect.href;
                 return (

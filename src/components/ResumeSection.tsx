@@ -33,6 +33,8 @@ export function ResumeSection() {
           <div className="flex flex-wrap gap-2.5">
             <button
               onClick={() => setShowFullFacsimile(!showFullFacsimile)}
+              aria-expanded={showFullFacsimile}
+              aria-controls="full-resume-content"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-5 py-2.5 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer shadow-md"
             >
               {showFullFacsimile ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -64,6 +66,7 @@ export function ResumeSection() {
         <div className="max-w-4xl mx-auto">
           {/* Premium Interactive Resume Facsimile */}
           <motion.div
+            id="full-resume-content"
             layout
             className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 rounded-3xl p-6 sm:p-10 shadow-2xl transition-all duration-300"
           >

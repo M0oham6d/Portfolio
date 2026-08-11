@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Github, Linkedin, Copy, Check, Send, Terminal, ShieldAlert } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Copy, Check, Send, Terminal } from 'lucide-react';
 import { portfolioData } from '../portfolioData';
 import { useToast } from './Toast';
 
@@ -14,7 +14,6 @@ export function Contact() {
     message: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(portfolioData.personalInfo.email);
@@ -53,15 +52,10 @@ export function Contact() {
       return;
     }
 
-    setIsSubmitting(true);
-    showToast('Sending secure payload... Please wait.', 'info');
-
-    // Simulate safe API submission delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      showToast('Secure message transmitted successfully. Secure handshake completed.', 'success');
-      setFormState({ name: '', email: '', subject: '', message: '' });
-    }, 1500);
+    const subject = encodeURIComponent(formState.subject);
+    const body = encodeURIComponent(`${formState.message}\n\nFrom: ${formState.name}\nEmail: ${formState.email}`);
+    window.location.href = `mailto:${portfolioData.personalInfo.email}?subject=${subject}&body=${body}`;
+    showToast('Opening your email app with the message ready to send.', 'info');
   };
 
   return (
@@ -71,11 +65,11 @@ export function Contact() {
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-16">
           <h2 className="text-3xl font-extrabold font-display tracking-tight text-slate-900 dark:text-white">
-            Secure <span className="text-blue-600 dark:text-blue-500">Channel</span>
+            Let's <span className="text-blue-600 dark:text-blue-500">Connect</span>
           </h2>
           <div className="w-12 h-1 bg-blue-600 rounded-full mt-3 mb-4" />
           <p className="text-sm font-mono text-slate-500 dark:text-slate-400 max-w-md uppercase tracking-wider">
-            Initiate Secure Connection
+            Open to roles, projects, and technical conversations
           </p>
         </div>
 
@@ -85,22 +79,22 @@ export function Contact() {
           {/* Left Block: Communication parameters */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <h3 className="text-lg font-bold font-display text-slate-800 dark:text-white">
-              Contact parameters
+              Contact details
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans mb-4">
-              Feel free to reach out via this secure form or direct coordinates. Whether looking to discuss a SOC automation pipeline, a Microsoft 365 migration deployment, or general threat detection, my channels are open.
+              Have a security engineering role, a collaboration idea, or a detection problem worth solving? Send a note and your email app will prepare the message.
             </p>
 
             <div className="flex flex-col gap-4 font-mono text-xs sm:text-sm">
               {/* Direct coordinates cards */}
               
               {/* Email with copy button */}
-              <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between gap-3 p-4 bg-slate-50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl">
+                <div className="flex min-w-0 items-center gap-3">
                   <Mail className="w-5 h-5 text-blue-500" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 font-mono">EMAIL_COORDINATES</span>
-                    <span className="text-slate-700 dark:text-slate-300 font-semibold select-all">
+                  <div className="flex min-w-0 flex-col">
+                    <span className="text-[10px] text-slate-400 font-mono">EMAIL</span>
+                    <span className="break-all text-slate-700 dark:text-slate-300 font-semibold select-all">
                       {portfolioData.personalInfo.email}
                     </span>
                   </div>
@@ -108,6 +102,7 @@ export function Contact() {
 
                 <button
                   onClick={handleCopyEmail}
+                  aria-label="Copy email address"
                   className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-300 transition-colors cursor-pointer"
                   title="Copy email address"
                 >
@@ -119,7 +114,7 @@ export function Contact() {
               <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl">
                 <Phone className="w-5 h-5 text-emerald-500" />
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 font-mono">PHONE_COORDINATES</span>
+                   <span className="text-[10px] text-slate-400 font-mono">PHONE</span>
                   <span className="text-slate-700 dark:text-slate-300 font-semibold">
                     {portfolioData.personalInfo.phone}
                   </span>
@@ -130,7 +125,7 @@ export function Contact() {
               <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl">
                 <MapPin className="w-5 h-5 text-rose-500" />
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 font-mono">LOCATION_STAMP</span>
+                  <span className="text-[10px] text-slate-400 font-mono">LOCATION</span>
                   <span className="text-slate-700 dark:text-slate-300 font-semibold">
                     Cairo, Egypt (Available for remote and international relocation)
                   </span>
@@ -144,6 +139,7 @@ export function Contact() {
                 href={portfolioData.personalInfo.linkedin}
                 target="_blank"
                 rel="noreferrer"
+                aria-label="View LinkedIn profile"
                 className="flex items-center justify-center w-11 h-11 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
               >
                 <Linkedin className="w-5 h-5" />
@@ -152,6 +148,7 @@ export function Contact() {
                 href={portfolioData.personalInfo.github}
                 target="_blank"
                 rel="noreferrer"
+                aria-label="View GitHub profile"
                 className="flex items-center justify-center w-11 h-11 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-950 dark:hover:bg-slate-950 hover:text-white dark:hover:text-white transition-all duration-300 hover:scale-105 shadow-sm"
               >
                 <Github className="w-5 h-5" />
@@ -165,7 +162,7 @@ export function Contact() {
               <div className="flex items-center gap-2 mb-6 border-b border-slate-100 dark:border-slate-850 pb-3">
                 <Terminal className="w-4.5 h-4.5 text-blue-500" />
                 <span className="font-mono text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">
-                  MESSAGE_COMPOSE_MODULE
+                  MESSAGE COMPOSER
                 </span>
               </div>
 
@@ -179,6 +176,9 @@ export function Contact() {
                     id="name"
                     type="text"
                     name="name"
+                    autoComplete="name"
+                    aria-invalid={Boolean(errors.name)}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
                     value={formState.name}
                     onChange={handleInputChange}
                     placeholder="Enter your name"
@@ -186,7 +186,7 @@ export function Contact() {
                       errors.name ? 'border-rose-500 focus:ring-rose-500' : 'border-slate-200 dark:border-slate-800 focus:ring-blue-500'
                     } text-sm focus:outline-none focus:ring-1.5 transition-all text-slate-800 dark:text-slate-100`}
                   />
-                  {errors.name && <span className="text-[10px] text-rose-500 font-mono">{errors.name}</span>}
+                  {errors.name && <span id="name-error" className="text-[10px] text-rose-500 font-mono">{errors.name}</span>}
                 </div>
 
                 {/* Email field */}
@@ -198,6 +198,9 @@ export function Contact() {
                     id="email"
                     type="email"
                     name="email"
+                    autoComplete="email"
+                    aria-invalid={Boolean(errors.email)}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
                     value={formState.email}
                     onChange={handleInputChange}
                     placeholder="Enter your email address"
@@ -205,7 +208,7 @@ export function Contact() {
                       errors.email ? 'border-rose-500 focus:ring-rose-500' : 'border-slate-200 dark:border-slate-800 focus:ring-blue-500'
                     } text-sm focus:outline-none focus:ring-1.5 transition-all text-slate-800 dark:text-slate-100`}
                   />
-                  {errors.email && <span className="text-[10px] text-rose-500 font-mono">{errors.email}</span>}
+                  {errors.email && <span id="email-error" className="text-[10px] text-rose-500 font-mono">{errors.email}</span>}
                 </div>
 
                 {/* Subject field */}
@@ -217,6 +220,9 @@ export function Contact() {
                     id="subject"
                     type="text"
                     name="subject"
+                    autoComplete="off"
+                    aria-invalid={Boolean(errors.subject)}
+                    aria-describedby={errors.subject ? 'subject-error' : undefined}
                     value={formState.subject}
                     onChange={handleInputChange}
                     placeholder="Subject of message"
@@ -224,36 +230,37 @@ export function Contact() {
                       errors.subject ? 'border-rose-500 focus:ring-rose-500' : 'border-slate-200 dark:border-slate-800 focus:ring-blue-500'
                     } text-sm focus:outline-none focus:ring-1.5 transition-all text-slate-800 dark:text-slate-100`}
                   />
-                  {errors.subject && <span className="text-[10px] text-rose-500 font-mono">{errors.subject}</span>}
+                  {errors.subject && <span id="subject-error" className="text-[10px] text-rose-500 font-mono">{errors.subject}</span>}
                 </div>
 
                 {/* Message body */}
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="message" className="text-xs font-semibold text-slate-600 dark:text-slate-300 font-mono">
-                    Message payload
+                    Message
                   </label>
                   <textarea
                     id="message"
                     name="message"
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                     rows={4}
                     value={formState.message}
                     onChange={handleInputChange}
-                    placeholder="Type your message payload here..."
+                    placeholder="Tell me about the role, project, or problem..."
                     className={`w-full bg-slate-50 dark:bg-slate-950/50 px-4 py-3 rounded-xl border ${
                       errors.message ? 'border-rose-500 focus:ring-rose-500' : 'border-slate-200 dark:border-slate-800 focus:ring-blue-500'
                     } text-sm focus:outline-none focus:ring-1.5 transition-all text-slate-800 dark:text-slate-100 resize-none`}
                   />
-                  {errors.message && <span className="text-[10px] text-rose-500 font-mono">{errors.message}</span>}
+                  {errors.message && <span id="message-error" className="text-[10px] text-rose-500 font-mono">{errors.message}</span>}
                 </div>
 
                 {/* Submit button */}
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-500/50 text-white font-semibold text-xs py-3 px-5 rounded-xl flex items-center justify-center gap-2 mt-2 transition-all cursor-pointer shadow-md shadow-blue-500/10"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-3 px-5 rounded-xl flex items-center justify-center gap-2 mt-2 transition-all cursor-pointer shadow-md shadow-blue-500/10"
                 >
-                  <Send className={`w-4 h-4 ${isSubmitting ? 'animate-pulse' : ''}`} />
-                  <span>{isSubmitting ? 'TRANSMITTING...' : 'TRANSMIT SECURE HANDSHAKE'}</span>
+                  <Send className="w-4 h-4" />
+                  <span>PREPARE EMAIL</span>
                 </button>
               </form>
 

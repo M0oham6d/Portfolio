@@ -53,7 +53,7 @@ export function Certifications() {
           </h2>
           <div className="w-12 h-1 bg-blue-600 rounded-full mt-3 mb-4" />
           <p className="text-sm font-mono text-slate-500 dark:text-slate-400 max-w-md uppercase tracking-wider">
-            Verified Certifications & Licenses
+            Certifications, training, and completed programs
           </p>
         </div>
 
@@ -63,6 +63,7 @@ export function Certifications() {
             <Search className="w-5 h-5" />
           </div>
           <input
+            aria-label="Search certifications"
             type="text"
             placeholder="Search certifications by name, skills gained, issuer..."
             value={searchTerm}
@@ -173,6 +174,9 @@ export function Certifications() {
               />
 
               <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${selectedCert.name} certificate preview`}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -182,7 +186,7 @@ export function Certifications() {
                 <div className="p-4 border-b border-slate-800 flex justify-between items-center text-slate-200 bg-slate-950/50">
                   <div className="flex flex-col">
                     <span className="font-mono text-xs font-bold text-blue-400 uppercase tracking-widest">
-                      CREDENTIAL SECURITY VERIFICATION
+                      CREDENTIAL DOCUMENT
                     </span>
                     <span className="text-xs text-slate-400 mt-0.5 font-mono">
                       {selectedCert.name} // {selectedCert.organization}
@@ -190,6 +194,7 @@ export function Certifications() {
                   </div>
                   <button
                     onClick={() => setSelectedCert(null)}
+                    aria-label="Close certificate preview"
                     className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all cursor-pointer"
                   >
                     <X className="w-4.5 h-4.5" />
@@ -198,7 +203,7 @@ export function Certifications() {
 
                 {/* Embedded Viewer Canvas */}
                 <div className="flex-1 bg-slate-950 p-6 flex items-center justify-center">
-                  {certAttachments[selectedCert.id]?.url.startsWith('blob:') ? (
+                  {certAttachments[selectedCert.id] ? (
                     certAttachments[selectedCert.id]?.type === 'image' ? (
                       <img
                         src={certAttachments[selectedCert.id]?.url}
@@ -214,7 +219,6 @@ export function Certifications() {
                       />
                     )
                   ) : (
-                    // Default seeded mock rendering
                     <div className="bg-slate-900 border border-slate-800 text-slate-300 rounded-2xl p-8 max-w-lg w-full flex flex-col gap-4 text-center shadow-2xl">
                       <div className="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto text-blue-500">
                         <Award className="w-8 h-8" />
@@ -229,9 +233,8 @@ export function Certifications() {
                       </div>
                       
                       <div className="text-xs text-slate-400 leading-relaxed font-mono bg-slate-950 p-4 rounded-xl border border-slate-800/60 flex flex-col gap-1 text-left">
-                        <div>&gt; CERTIFICATE_VERIFIED: TRUE</div>
-                        <div>&gt; ENCRYPTION: SHA-256</div>
-                        <div>&gt; METADATA: SECURE_PAYLOAD</div>
+                        <div>&gt; DOCUMENT_STATUS: NOT_UPLOADED</div>
+                        <div>&gt; ISSUER: {selectedCert.organization}</div>
                         <div className="truncate">&gt; SKILLS: {selectedCert.skillsGained.join(', ')}</div>
                       </div>
 
