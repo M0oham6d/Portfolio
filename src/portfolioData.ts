@@ -346,6 +346,14 @@ export const portfolioData: PortfolioData = {
       ],
       featured: true,
       githubUrl: "https://github.com/M0oham6d/pulsedeck",
+      defaultFiles: [
+        {
+          name: "PulseDeck Dashboard Screenshot",
+          type: "image",
+          url: "/projects/pulsedeck.png",
+          category: "Screenshots",
+        },
+      ],
     },
     {
       id: "proj16",
