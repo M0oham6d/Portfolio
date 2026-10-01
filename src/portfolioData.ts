@@ -279,7 +279,7 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       "id": "proj19",
-      "title": "Microsoft Sentinel Use-Case Implementation Part 2",
+      "title": "Phishing Detection & Automated Response with Microsoft Sentinel",
       "company": "Global Brands Group (GBG)",
       "date": "September 2026",
       "shortDescription": "An end-to-end phishing detection and response workflow using Microsoft Sentinel, Microsoft Defender for Office 365, KQL, Microsoft Graph, and Azure Logic Apps to detect phishing and user-reported phishing emails and automatically soft-delete affected messages.",
