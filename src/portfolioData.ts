@@ -278,6 +278,85 @@ export const portfolioData: PortfolioData = {
   ],
   projects: [
     {
+      "id": "proj19",
+      "title": "Microsoft Sentinel Use-Case Implementation Part 2",
+      "company": "Global Brands Group (GBG)",
+      "date": "September 2026",
+      "shortDescription": "An end-to-end phishing detection and response workflow using Microsoft Sentinel, Microsoft Defender for Office 365, KQL, Microsoft Graph, and Azure Logic Apps to detect phishing and user-reported phishing emails and automatically soft-delete affected messages.",
+      "longDescription": "An end-to-end Microsoft security automation project focused on detecting and responding to phishing and unwanted mail. The solution uses Microsoft Defender for Office 365 telemetry and Microsoft Sentinel scheduled analytics rules with KQL to identify delivered phishing emails, suspicious URLs, authentication failures, suspicious domains, and user-reported phishing messages. When a high-confidence incident is created, a Sentinel automation rule triggers an Azure Logic App that extracts account and mail-message entities, validates the available message identifiers, builds the required remediation payload, and uses the Microsoft Graph remediation API to soft-delete the affected email. The workflow also includes Microsoft Entra ID and Azure RBAC permissions, Managed Identity authentication, Sentinel incident integration, and validation through Logic App run history and the Defender Action Center. The implementation was tested in a controlled lab environment with a focus on avoiding overly aggressive automated actions.",
+      "technologies": [
+        "Microsoft Sentinel",
+        "Microsoft Defender for Office 365",
+        "Microsoft Defender XDR",
+        "Microsoft Entra ID",
+        "Microsoft Graph",
+        "Azure Logic Apps",
+        "Kusto Query Language (KQL)",
+        "Azure Managed Identities",
+        "Microsoft Entra RBAC",
+        "Azure RBAC",
+        "MITRE ATT&CK Framework"
+      ],
+      "features": [
+        "KQL-based phishing detection using email, URL, authentication, and threat telemetry.",
+        "Detection of delivered phishing emails using Microsoft impersonation and typosquatting characteristics.",
+        "Detection of authentication failures including SPF, DKIM, and DMARC results.",
+        "Detection of suspicious domains, URLs, and phishing-related lure keywords.",
+        "Correlation of phishing email activity with URL click telemetry.",
+        "User-reported phishing detection using AlertInfo, AlertEvidence, and EmailEvents.",
+        "Microsoft Sentinel scheduled analytics rules for automated incident creation.",
+        "Sentinel automation rule triggering an Azure Logic App when a phishing incident is created.",
+        "Automatic extraction of affected user account and mail-message entities.",
+        "Filtering and validation of mail-message entities using NetworkMessageId.",
+        "Microsoft Graph remediation API used to soft-delete identified phishing messages.",
+        "Incident workflow designed to distinguish phishing from ordinary spam.",
+        "Controlled automated response with destructive actions limited during testing.",
+        "Managed Identity authentication and least-privilege permission configuration.",
+        "Sentinel Responder and Sentinel Automation Contributor RBAC configuration.",
+        "Microsoft Graph SecurityAnalyzedMessage.ReadWrite.All permission used for message remediation.",
+        "Logic App run-history validation and Defender Action Center verification.",
+        "End-to-end testing from phishing detection through automated email remediation."
+      ],
+      "challenges": [
+        "Designing reliable phishing detection logic while reducing false positives.",
+        "Correlating email telemetry, URL activity, authentication results, and threat indicators.",
+        "Correlating user-reported phishing alerts with the original email message.",
+        "Handling different entity types and incomplete mail-message information in Sentinel incidents.",
+        "Extracting valid NetworkMessageId values from Sentinel mail-message entities.",
+        "Building the Microsoft Graph remediation payload dynamically inside Azure Logic Apps.",
+        "Configuring the required Sentinel, Azure, and Microsoft Graph permissions for automated remediation.",
+        "Designing automation that avoids aggressive actions against ordinary low-confidence spam.",
+        "Validating that automated message remediation succeeds before considering the workflow complete.",
+        "Testing the complete Sentinel-to-Logic-App-to-Defender response chain in a controlled environment.",
+        "Understanding the limitations of the current implementation, including execution at incident creation and the absence of an approval step."
+      ],
+      "learned": [
+        "Practical Microsoft Sentinel detection engineering using KQL.",
+        "Building phishing detections around email and URL telemetry.",
+        "Correlating Microsoft Defender for Office 365 data with Sentinel incidents.",
+        "Understanding the Sentinel incident lifecycle from detection to automated response.",
+        "Building scheduled analytics rules and configuring entity mappings.",
+        "Detecting and correlating user-reported phishing activity.",
+        "Using Azure Logic Apps for security orchestration and automated incident response.",
+        "Extracting and validating Sentinel incident entities inside Logic Apps.",
+        "Using Microsoft Graph remediation APIs to soft-delete phishing messages.",
+        "Configuring Managed Identity permissions and applying least-privilege principles.",
+        "Working with Microsoft Entra ID and Azure RBAC for security automation.",
+        "Designing controlled security automation that avoids overreacting to low-confidence events.",
+        "Validating automated remediation through Logic App run history and Microsoft Defender Action Center.",
+        "Understanding how SIEM, email security, and SOAR components can be integrated into a single workflow."
+      ],
+      "featured": true,
+      "defaultFiles": [
+        {
+          "name": "Microsoft Sentinel Use-Case Implementation Part 2.pdf",
+          "type": "pdf",
+          "url": "/projects/Microsoft Sentinel Use-Case Implementation Part 2.pdf",
+          "category": "Documentation"
+        }
+      ]
+    },
+    {
       id: "proj18",
       title:
         "Automated Ransomware Detection & Response with Microsoft Sentinel",
