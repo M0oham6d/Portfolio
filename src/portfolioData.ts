@@ -1309,6 +1309,22 @@ export const portfolioData: PortfolioData = {
   ],
   certifications: [
     {
+      id: "cert8",
+      name: "Microsoft Certified: Security Operations Analyst Associate (SC-200)",
+      organization: "Microsoft",
+      date: "October 2026",
+      credentialId: "C1BD209BFD1E65F6",
+      skillsGained: [
+        "Microsoft Sentinel",
+        "Microsoft Defender XDR",
+        "KQL Threat Hunting",
+        "Incident Response",
+        "Security Operations",
+      ],
+      fileType: "pdf",
+      fileUrl: "/certificates/Microsoft SC-200.pdf",
+    },
+    {
       id: "cert1",
       name: "Microsoft 365 Security",
       organization: "GBG Academy",
